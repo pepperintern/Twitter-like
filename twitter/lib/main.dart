@@ -73,11 +73,14 @@ class LoginState extends State<Login> {
   }
 
   Widget _submitButton() {
-    return RaisedButton(
+    return Padding(
+      padding: EdgeInsets.only(top: 100.0),
+      child:
+      RaisedButton(
       child: Text("Submit"),
       onPressed: () {
         Navigator.of(context).pushNamed("/myHomePage");
-      },
+      },),
     );
   }
 }
