@@ -10,11 +10,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
-      // home: MyHomePage(),
-      routes: <String, WidgetBuilder>{
-        // '/MyHomePage': (_) => new MyHomePage(),
-        '/Login': (_) => new Login(),
-      },
+      home: Login(),
+      // routes: <String, WidgetBuilder>{
+      //   // '/MyHomePage': (_) => new MyHomePage(),
+      //   '/login': (_) => new Login(),
+      // },
     );
   }
 }
@@ -53,14 +53,16 @@ class LoginState extends State<Login> {
       body: _login(), //ここにログイン画面を入れる。
     );
   }
-  Widget _login(){ Padding(
-      padding: _padding,
+
+  Widget _login() {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           TextField(
             keyboardType: TextInputType.text,
-            style: Theme.of(context).textTheme.body1,
+            style: Theme.of(context).textTheme.display1,
             decoration: InputDecoration(
               labelText: "お名前",
               labelStyle: Theme.of(context).textTheme.display1,
@@ -69,6 +71,5 @@ class LoginState extends State<Login> {
         ],
       ),
     );
-
-}
+  }
 }
