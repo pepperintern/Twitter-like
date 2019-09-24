@@ -67,6 +67,7 @@ class LoginState extends State<Login> {
               labelStyle: Theme.of(context).textTheme.display1,
             ),
           )
+          
         ],
       ),
     );
@@ -74,12 +75,18 @@ class LoginState extends State<Login> {
 
   Widget _submitButton() {
     return Padding(
-      padding: EdgeInsets.only(top: 100.0),
-      child: RaisedButton(
-        child: Text("Submit"),
-        onPressed: () {
-          Navigator.of(context).pushNamed("/myHomePage");
-        },
+      padding: EdgeInsets.only(top: 150.0),
+      child: SizedBox(
+        width: 200.0,
+        height: 60.0,
+        child: RaisedButton(
+          child: Text("Submit",
+          style: new TextStyle(fontSize: 24),
+          ),
+          onPressed: () {
+            Navigator.of(context).pushNamed("/myHomePage");
+          },
+        ),
       ),
     );
   }
