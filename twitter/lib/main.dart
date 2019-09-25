@@ -53,13 +53,16 @@ class LoginState extends State<Login> {
         body: Column(children: <Widget>[_login(), _submitButton()]));
   }
 
+  final _nameController = TextEditingController();
+
   Widget _login() {
     return Padding(
       padding: EdgeInsets.only(top: 80.0, right: 30.0, left: 30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          TextField(
+          TextFormField(
+            controller: _nameController,
             keyboardType: TextInputType.text,
             style: Theme.of(context).textTheme.display1,
             decoration: InputDecoration(
@@ -67,7 +70,6 @@ class LoginState extends State<Login> {
               labelStyle: Theme.of(context).textTheme.display1,
             ),
           )
-          
         ],
       ),
     );
@@ -80,8 +82,9 @@ class LoginState extends State<Login> {
         width: 200.0,
         height: 60.0,
         child: RaisedButton(
-          child: Text("Submit",
-          style: new TextStyle(fontSize: 24),
+          child: Text(
+            "Submit",
+            style: new TextStyle(fontSize: 24),
           ),
           onPressed: () {
             Navigator.of(context).pushNamed("/myHomePage");
