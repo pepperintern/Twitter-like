@@ -32,10 +32,43 @@ class MyHomePageState extends State<MyHomePage> {
           child: Text("ホーム"),
         ),
       ),
-      body: null, //ここにツイートリストを表示する、ツイート投稿機能を追加する。
+      body: _postTweet(),
     );
   }
+   Widget _postTweet(){
+    return
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: 
+        Container(
+          child: Row(
+            children: <Widget>[
+            TextField(
+              keyboardType: TextInputType.text,
+              style: Theme.of(context).textTheme.body1,
+              decoration: InputDecoration(
+                labelText: "いまなにしてる？",
+                labelStyle: Theme.of(context).textTheme.display1,
+              ),
+            ),
+            RaisedButton(
+              child: Text("送信"),
+              onPressed: () {
+              //Navigator;
+              },
+            ),
+         ],
+       ) ,
+     ),
+    );
 }
+       
+ //ここにツイートリストを表示する、ツイート投稿機能を追加する。
+    
+  
+}
+
+
 
 class Login extends StatefulWidget {
   LoginState createState() => LoginState();
