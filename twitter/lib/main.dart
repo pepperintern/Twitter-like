@@ -33,8 +33,13 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ),
       // body:
-      body: _postTweet(),
-    );
+      body: Stack(
+        children:<Widget>[
+          _postTweet(),
+          _tweetList(),
+        ]  
+    ),
+   );
   }
 
   final _tweetController = TextEditingController();
