@@ -32,43 +32,51 @@ class MyHomePageState extends State<MyHomePage> {
           child: Text("ホーム"),
         ),
       ),
+      // body:
       body: _postTweet(),
     );
   }
-   Widget _postTweet(){
-    return
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: 
-        Container(
+
+  final _tweetController = TextEditingController();
+
+  Widget _postTweet() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 50.0, left: 30),
+        child: Container(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-            TextField(
-              keyboardType: TextInputType.text,
-              style: Theme.of(context).textTheme.body1,
-              decoration: InputDecoration(
-                labelText: "いまなにしてる？",
-                labelStyle: Theme.of(context).textTheme.display1,
+              Expanded(
+                child: TextField(
+                  controller: _tweetController,
+                  keyboardType: TextInputType.text,
+                  style: Theme.of(context).textTheme.body1,
+                  decoration: InputDecoration(
+                    hintText: "いまなにしてる？",
+                    hintStyle: Theme.of(context).textTheme.display1,
+                  ),
+                ),
               ),
-            ),
-            RaisedButton(
-              child: Text("送信"),
-              onPressed: () {
-              //Navigator;
-              },
-            ),
-         ],
-       ) ,
-     ),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: RaisedButton(
+                  child: Text("送信"),
+                  onPressed: () {
+                    // Navigator;
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
-}
-       
- //ここにツイートリストを表示する、ツイート投稿機能を追加する。
-    
-  
+  }
 }
 
-
+//ここにツイートリストを表示する、ツイート投稿機能を追加する。
 
 class Login extends StatefulWidget {
   LoginState createState() => LoginState();
@@ -108,12 +116,12 @@ class LoginState extends State<Login> {
   Widget _submitButton() {
     return Padding(
       padding: EdgeInsets.only(top: 100.0),
-      child:
-      RaisedButton(
-      child: Text("Submit"),
-      onPressed: () {
-        Navigator.of(context).pushNamed("/myHomePage");
-      },),
+      child: RaisedButton(
+        child: Text("Submit"),
+        onPressed: () {
+          Navigator.of(context).pushNamed("/myHomePage");
+        },
+      ),
     );
   }
 }
