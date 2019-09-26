@@ -11,31 +11,35 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       home: Login(),
-      // routes: <String, WidgetBuilder>{
-      //   // '/MyHomePage': (_) => new MyHomePage(),
-      //   '/login': (_) => new Login(),
-      // },
+      routes: <String, WidgetBuilder>{
+        '/myHomePage': (_) => new MyHomePage(),
+        '/login': (_) => new Login(),
+      },
     );
   }
 }
 
-// class MyHomePage extends StatefulWidget{
-//   MyHomePageState createState() => MyHomePageState();
-// }
+class MyHomePage extends StatefulWidget {
+  MyHomePageState createState() => MyHomePageState();
+}
 
-// class MyHomePageState extends State<MyHomePage>{
-//   @override
-//   Widget build(BuildContext context){
-//     return Scaffold(
-//       appBar: new AppBar(
-//         title: Center(
-//           child: Text("ホーム"),
-//         ),
-//       ),
-//       body: null,//ここにツイートリストを表示する
-//     );
-//   }
-// }
+class MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: new AppBar(
+        title: Center(
+          child: Text("ホーム"),
+        ),
+      ),
+      body: null, //ここにツイートリストを表示する、ツイート投稿機能を追加する。
+    );
+  }
+}
+
+
+
+
 
 class Login extends StatefulWidget {
   LoginState createState() => LoginState();
@@ -45,18 +49,18 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: Center(
-          child: Text("ログイン"),
+        appBar: new AppBar(
+          title: Center(
+            child: Text("ログイン"),
+          ),
         ),
-      ),
-      body: _login(), //ここにログイン画面を入れる。
-    );
+        body: Column(children: <Widget>[_login(), _submitButton()]));
   }
+
 
   Widget _login() {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.only(top: 80.0, right: 30.0, left: 30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -70,6 +74,18 @@ class LoginState extends State<Login> {
           )
         ],
       ),
+    );
+  }
+
+  Widget _submitButton() {
+    return Padding(
+      padding: EdgeInsets.only(top: 100.0),
+      child:
+      RaisedButton(
+      child: Text("Submit"),
+      onPressed: () {
+        Navigator.of(context).pushNamed("/myHomePage");
+      },),
     );
   }
 }
