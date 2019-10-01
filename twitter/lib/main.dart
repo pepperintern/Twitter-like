@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -32,14 +34,14 @@ class MyHomePageState extends State<MyHomePage> {
           child: Text("ホーム"),
         ),
       ),
-      // body:
-      body: Stack(
-        children:<Widget>[
-          _postTweet(),
-          _tweetList(),
-        ]  
-    ),
-   );
+      body: Column(
+          children:<Widget>[
+            _tweetList(),
+            _postTweet(),
+          ]
+      ),
+    );
+
   }
 
   final _tweetController = TextEditingController();
@@ -79,9 +81,27 @@ class MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
-
-//ここにツイートリストを表示する、ツイート投稿機能を追加する。
+  
+  Widget _tweetList() {
+    return Expanded( 
+      child: ListView.builder(
+        itemBuilder: (BuildContext context, int) {
+          return Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black)
+              ),
+            ),
+            child: ListTile(
+              leading: Text("name"),
+              title: Text("text")
+            ),
+          );
+        },
+      )
+    );
+  }
+}  
 
 class Login extends StatefulWidget {
   LoginState createState() => LoginState();
