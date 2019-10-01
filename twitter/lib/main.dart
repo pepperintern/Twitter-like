@@ -1,4 +1,8 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 void main() => runApp(MyApp());
 
@@ -32,8 +36,82 @@ class MyHomePageState extends State<MyHomePage> {
           child: Text("ホーム"),
         ),
       ),
-      body: null, //ここにツイートリストを表示する、ツイート投稿機能を追加する。
+      body: Column(children: <Widget>[
+        _tweetList(),
+        _postTweet(),
+      ]),
     );
+  }
+
+  final _tweetController = TextEditingController();
+
+  Widget _postTweet() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 50.0, left: 30),
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: TextField(
+                  controller: _tweetController,
+                  keyboardType: TextInputType.text,
+                  style: Theme.of(context).textTheme.body1,
+                  decoration: InputDecoration(
+                    hintText: "いまなにしてる？",
+                    hintStyle: Theme.of(context).textTheme.display1,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: RaisedButton(
+                  child: Text("送信"),
+                  onPressed: () {
+                    // Navigator;
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  List data;
+
+  Future getData() async {
+    http.Response response = await http.get("http://10.0.2.2:8080/get");
+    data = json.decode(response.body);
+    setState(() {
+      getData();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Widget _tweetList() {
+    return Expanded(
+        child: ListView.builder(
+      itemCount: data == null ? 0 : data.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.black)),
+          ),
+          child: ListTile(
+              leading: Text("${data[index]["name"]}"),
+              title: Text("${data[index]["content"]}")),
+        );
+      },
+    ));
   }
 }
 
