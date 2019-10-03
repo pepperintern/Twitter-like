@@ -69,6 +69,9 @@ class MyHomePageState extends State<MyHomePage> {
                   child: Text("送信"),
                   onPressed: () {
                     sendPostData(postctl);
+                    // setState(() {
+                    //   getData();
+                    // });
                   },
                 ),
               ),
@@ -82,7 +85,7 @@ class MyHomePageState extends State<MyHomePage> {
   List data;
 
   Future getData() async {
-    http.Response response = await http.get("http://10.0.2.2:8080/get");
+    http.Response response = await http.get("http://localhost:8080/posts");
     data = json.decode(response.body);
     setState(() {
       getData();
@@ -105,8 +108,7 @@ class MyHomePageState extends State<MyHomePage> {
             border: Border(bottom: BorderSide(color: Colors.black)),
           ),
           child: ListTile(
-              leading: Text("${data[index]["name"]}"),
-              title: Text("${data[index]["content"]}")),
+              title: Text("${data[index]["message"]}")),
         );
       },
     ));
