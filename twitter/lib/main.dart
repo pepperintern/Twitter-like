@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:twitter/api.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,8 +44,6 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  final _tweetController = TextEditingController();
-
   Widget _postTweet() {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -56,8 +55,7 @@ class MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Expanded(
                 child: TextField(
-                  controller: _tweetController,
-                  keyboardType: TextInputType.text,
+                  controller: postctl,
                   style: Theme.of(context).textTheme.body1,
                   decoration: InputDecoration(
                     hintText: "いまなにしてる？",
@@ -70,7 +68,7 @@ class MyHomePageState extends State<MyHomePage> {
                 child: RaisedButton(
                   child: Text("送信"),
                   onPressed: () {
-                    // Navigator;
+                    sendPostData(postctl);
                   },
                 ),
               ),
@@ -120,15 +118,35 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+  // TextEditingController namectl = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-          title: Center(
-            child: Text("ログイン"),
+        appBar: AppBar(title: Text("ログイン")),
+        body: new Container(
+          margin: const EdgeInsets.only(left: 8.0, right: 8.0),
+          child: new Column(
+            children: <Widget>[
+              new TextField(
+                controller: namectl,
+                decoration: InputDecoration(
+                    hintText: "name.....", labelText: 'Post name'),
+              ),
+              new TextField(
+                controller: emailctl,
+                decoration: InputDecoration(
+                    hintText: "email.......", labelText: 'Post email'),
+              ),
+              new RaisedButton(
+                onPressed: () async {
+                  sendUserData(namectl, emailctl);
+                  Navigator.of(context).pushNamed("/myHomePage");
+                },
+                child: const Text("送信"),
+              )
+            ],
           ),
-        ),
-        body: Column(children: <Widget>[_login(), _submitButton()]));
+        ));
   }
 
   final _nameController = TextEditingController();
