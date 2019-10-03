@@ -35,6 +35,13 @@ class MyHomePageState extends State<MyHomePage> {
         title: Center(
           child: Text("ホーム"),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh,),
+            onPressed: (){
+             getData();
+          }),
+        ],
       ),
       body: Column(children: <Widget>[
         _tweetList(),
@@ -91,11 +98,11 @@ class MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  // }
 
   Widget _tweetList() {
     return Expanded(
@@ -165,7 +172,7 @@ class LoginState extends State<Login> {
             style: new TextStyle(fontSize: 24),
           ),
           onPressed: () {
-            Navigator.of(context).pushNamed("/myHomePage");
+            Navigator.of(context).pushReplacementNamed("/myHomePage");
           },
         ),
       ),
