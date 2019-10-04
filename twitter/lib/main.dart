@@ -69,9 +69,9 @@ class MyHomePageState extends State<MyHomePage> {
                   child: Text("送信"),
                   onPressed: () {
                     sendPostData(postctl);
-                    // setState(() {
-                    //   getData();
-                    // });
+                    setState(() {
+                      getData();
+                    });
                   },
                 ),
               ),
@@ -86,9 +86,8 @@ class MyHomePageState extends State<MyHomePage> {
 
   Future getData() async {
     http.Response response = await http.get("http://localhost:8080/posts");
-    data = json.decode(response.body);
     setState(() {
-      getData();
+      data = json.decode(response.body);
     });
   }
 
@@ -151,44 +150,44 @@ class LoginState extends State<Login> {
         ));
   }
 
-  final _nameController = TextEditingController();
+//   final _nameController = TextEditingController();
 
-  Widget _login() {
-    return Padding(
-      padding: EdgeInsets.only(top: 80.0, right: 30.0, left: 30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          TextFormField(
-            controller: _nameController,
-            keyboardType: TextInputType.text,
-            style: Theme.of(context).textTheme.display1,
-            decoration: InputDecoration(
-              labelText: "お名前",
-              labelStyle: Theme.of(context).textTheme.display1,
-            ),
-          )
-        ],
-      ),
-    );
-  }
+//   Widget _login() {
+//     return Padding(
+//       padding: EdgeInsets.only(top: 80.0, right: 30.0, left: 30.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.stretch,
+//         children: <Widget>[
+//           TextFormField(
+//             controller: _nameController,
+//             keyboardType: TextInputType.text,
+//             style: Theme.of(context).textTheme.display1,
+//             decoration: InputDecoration(
+//               labelText: "お名前",
+//               labelStyle: Theme.of(context).textTheme.display1,
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
 
-  Widget _submitButton() {
-    return Padding(
-      padding: EdgeInsets.only(top: 150.0),
-      child: SizedBox(
-        width: 200.0,
-        height: 60.0,
-        child: RaisedButton(
-          child: Text(
-            "Submit",
-            style: new TextStyle(fontSize: 24),
-          ),
-          onPressed: () {
-            Navigator.of(context).pushNamed("/myHomePage");
-          },
-        ),
-      ),
-    );
-  }
+//   Widget _submitButton() {
+//     return Padding(
+//       padding: EdgeInsets.only(top: 150.0),
+//       child: SizedBox(
+//         width: 200.0,
+//         height: 60.0,
+//         child: RaisedButton(
+//           child: Text(
+//             "Submit",
+//             style: new TextStyle(fontSize: 24),
+//           ),
+//           onPressed: () {
+//             Navigator.of(context).pushNamed("/myHomePage");
+//           },
+//         ),
+//       ),
+//     );
+//   }
 }
