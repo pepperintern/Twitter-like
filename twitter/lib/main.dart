@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:twitter/api.dart';
 
@@ -33,11 +35,14 @@ class MyHomePageState extends State<MyHomePage> {
           child: Text("ホーム"),
         ),
       ),
-      body: Column(children: <Widget>[
-        _tweetList(),
-        _postTweet(),
-      ]),
+      body: Column(
+          children:<Widget>[
+            _tweetList(),
+            _postTweet(),
+          ]
+      ),
     );
+
   }
 
   Widget _postTweet() {
@@ -74,20 +79,27 @@ class MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
+  
   Widget _tweetList() {
-    return Expanded(child: ListView.builder(
-      itemBuilder: (BuildContext context, int) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.black)),
-          ),
-          child: ListTile(leading: Text("name"), title: Text("text")),
-        );
-      },
-    ));
+    return Expanded( 
+      child: ListView.builder(
+        itemBuilder: (BuildContext context, int) {
+          return Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black)
+              ),
+            ),
+            child: ListTile(
+              leading: Text("name"),
+              title: Text("text")
+            ),
+          );
+        },
+      )
+    );
   }
-}
+}  
 
 class Login extends StatefulWidget {
   LoginState createState() => LoginState();

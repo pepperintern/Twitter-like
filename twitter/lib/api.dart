@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-
 // トップページの情報をpostでrequestする処理の準備
 class User {
   final String name;
@@ -35,8 +34,8 @@ Future<String> sendUserData(
   );
 
   var url = "http://localhost:8080/user";
-  
-  print(json.encode(user.toJson()));
+
+  // print(json.encode(user.toJson()));
   final response = await http.post(url,
       body: json.encode(user.toJson()),
       headers: {"Content-Type": "application/json"});
@@ -48,10 +47,8 @@ Future<String> sendUserData(
   } else {
     throw Exception('Failed to load post');
   }
+
 }
-
-
-
 
 //　投稿ページの投稿をpostでrequestする処理の準備
 class Post {
@@ -91,4 +88,3 @@ Future<String> sendPostData(TextEditingController postctl) async {
     throw Exception('Failed to load post');
   }
 }
-
