@@ -67,11 +67,10 @@ class MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
                 child: RaisedButton(
                   child: Text("送信"),
-                  onPressed: () {
-                    sendPostData(postctl);
-                    setState(() {
-                      getData();
-                    });
+                  onPressed: () async {
+                    await sendPostData(postctl);
+                    getData();
+                    postctl.clear();  
                   },
                 ),
               ),
@@ -84,9 +83,14 @@ class MyHomePageState extends State<MyHomePage> {
 
   List data;
 
+  // Future getData() async {
+  //   http.Response response = await http.get("http://localhost:8080/posts");
+  //   data = json.decode(response.body);
+  // }
+
   Future getData() async {
     http.Response response = await http.get("http://localhost:8080/posts");
-    setState(() {
+    setState((){
       data = json.decode(response.body);
     });
   }

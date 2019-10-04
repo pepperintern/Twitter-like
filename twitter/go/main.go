@@ -33,7 +33,8 @@ func main() {
     // e.Renderer = t
 	//e.GET("/", rootHandler)
 	e.GET("/posts", GetHandler)
-    e.POST("/user", PostHandler)
+	e.POST("/post", PostHandler)
+    e.POST("/user", UserPostHandler)
     e.Logger.Fatal(e.Start(":8080"))
 }
 
@@ -60,6 +61,20 @@ func GetHandler(c echo.Context) error {
 }
 
 func PostHandler(c echo.Context) error {
+	db := DBConnect()
+	defer db.Close() 
+	db.SingularTable(true)
+	db.LogMode(true) 
+
+    post := new(Post)
+    if err := c.Bind(post); err != nil {
+        return err
+    }
+	db.Create(&post);
+	return c.JSON(http.StatusOK, post)
+}
+
+func UserPostHandler(c echo.Context) error {
 	db := DBConnect()
 	defer db.Close() 
 	db.SingularTable(true)
