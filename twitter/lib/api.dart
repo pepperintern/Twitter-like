@@ -39,7 +39,6 @@ Future<String> sendUserData(
 
   var url = "http://localhost:8080/user";
   
-  print(json.encode(user.toJson()));
   final response = await http.post(url,
       body: json.encode(user.toJson()),
       headers: {"Content-Type": "application/json"});
@@ -69,8 +68,8 @@ class Post {
   }
 
   Map<String, dynamic> toJson() => {
-        'message': message,
-      };
+    'message': message,
+  };
 }
 
 TextEditingController postctl = new TextEditingController();

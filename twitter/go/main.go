@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	"os"
 	"fmt"
+	"time"
 	"github.com/joho/godotenv"
 	"github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/mysql"
@@ -15,7 +16,7 @@ import (
 
 func DBConnect() *gorm.DB {
 	err := godotenv.Load()
-	db, err := gorm.Open("mysql", "root:"+os.Getenv("DB_PASSWORD")+"@/user")
+	db, err := gorm.Open("mysql", "root:"+os.Getenv("DB_PASSWORD")+"@/user?parseTime=true")
 	if err != nil {
         panic(err.Error())
     }
@@ -41,6 +42,7 @@ func main() {
 type Post struct{
 	Id int `json:"id"`
 	Message string `json:"message"`
+	Created_at time.Time `json:"created_at"`
 }
 
 type User struct {
