@@ -36,24 +36,18 @@ Future<String> sendUserData(
 
   var url = "http://localhost:8080/user";
   
-  print(json.encode(user.toJson()));
   final response = await http.post(url,
       body: json.encode(user.toJson()),
       headers: {"Content-Type": "application/json"});
 
-// serverからの処理
   if (response.statusCode == 200) {
     return response.body;
-    // Do something if needed
   } else {
     throw Exception('Failed to load post');
   }
 }
 
-
-
-
-//　投稿ページの投稿をpostでrequestする処理の準備
+// 　投稿ページの投稿をpostでrequestする処理の準備
 class Post {
   final String message;
 
@@ -71,6 +65,7 @@ class Post {
 }
 
 TextEditingController postctl = new TextEditingController();
+
 Future<String> sendPostData(TextEditingController postctl) async {
   var message = new Post(
     message: postctl.text,
@@ -78,17 +73,13 @@ Future<String> sendPostData(TextEditingController postctl) async {
 
   var url = "http://localhost:8080/post";
 
-  // print(json.encode(message.toJson()));
   final response = await http.post(url,
       body: json.encode(message.toJson()),
       headers: {"Content-Type": "application/json"});
 
-// serverからの処理
   if (response.statusCode == 200) {
     return response.body;
-    // Do something if needed
   } else {
     throw Exception('Failed to load post');
   }
 }
-

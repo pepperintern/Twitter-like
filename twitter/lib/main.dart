@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -38,10 +37,12 @@ class MyHomePageState extends State<MyHomePage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.refresh,),
-            onPressed: (){
-             getData();
-          }),
+              icon: Icon(
+                Icons.refresh,
+              ),
+              onPressed: () {
+                getData();
+              }),
         ],
       ),
       body: Column(children: <Widget>[
@@ -74,11 +75,10 @@ class MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
                 child: RaisedButton(
                   child: Text("送信"),
-                  onPressed: () {
-                    sendPostData(postctl);
-                    // setState(() {
-                    //   getData();
-                    // });
+                  onPressed: () async {
+                    await sendPostData(postctl);
+                    getData();
+                    postctl.clear();
                   },
                 ),
               ),
@@ -95,15 +95,15 @@ class MyHomePageState extends State<MyHomePage> {
     http.Response response = await http.get("http://localhost:8080/posts");
     data = json.decode(response.body);
     setState(() {
-      getData();
+      data = json.decode(response.body);
     });
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getData();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   Widget _tweetList() {
     return Expanded(
@@ -115,7 +115,9 @@ class MyHomePageState extends State<MyHomePage> {
             border: Border(bottom: BorderSide(color: Colors.black)),
           ),
           child: ListTile(
-              title: Text("${data[index]["message"]}")),
+            title: Text("${data[index]["message"]}"),
+            trailing: Text("${data[index]["created_at"]}"),
+          ),
         );
       },
     ));
@@ -125,77 +127,54 @@ class MyHomePageState extends State<MyHomePage> {
 class Login extends StatefulWidget {
   LoginState createState() => LoginState();
 }
-
 class LoginState extends State<Login> {
-  // TextEditingController namectl = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("ログイン")),
-        body: new Container(
+        body: _loginform());
+  }
+  Widget _loginform(){
+    return Form( 
+          key: _formKey,
+          child:Container(
           margin: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: new Column(
+          child: Column(
             children: <Widget>[
-              new TextField(
+              TextFormField(
                 controller: namectl,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                     hintText: "name.....", labelText: 'Post name'),
               ),
-              new TextField(
+              TextFormField(
                 controller: emailctl,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                     hintText: "email.......", labelText: 'Post email'),
               ),
               new RaisedButton(
                 onPressed: () async {
-                  sendUserData(namectl, emailctl);
-                  Navigator.of(context).pushNamed("/myHomePage");
+                  if (_formKey.currentState.validate()) {
+                    sendUserData(namectl, emailctl);
+                    Navigator.of(context).pushNamed("/myHomePage");
+                  }
                 },
                 child: const Text("送信"),
               )
             ],
           ),
         ));
-  }
-
-  final _nameController = TextEditingController();
-
-  Widget _login() {
-    return Padding(
-      padding: EdgeInsets.only(top: 80.0, right: 30.0, left: 30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          TextFormField(
-            controller: _nameController,
-            keyboardType: TextInputType.text,
-            style: Theme.of(context).textTheme.display1,
-            decoration: InputDecoration(
-              labelText: "お名前",
-              labelStyle: Theme.of(context).textTheme.display1,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _submitButton() {
-    return Padding(
-      padding: EdgeInsets.only(top: 150.0),
-      child: SizedBox(
-        width: 200.0,
-        height: 60.0,
-        child: RaisedButton(
-          child: Text(
-            "Submit",
-            style: new TextStyle(fontSize: 24),
-          ),
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed("/myHomePage");
-          },
-        ),
-      ),
-    );
   }
 }
