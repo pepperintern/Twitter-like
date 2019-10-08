@@ -38,16 +38,19 @@ func main() {
     e.Logger.Fatal(e.Start(":8080"))
 }
 
+
 type Post struct{
 	Id int `json:"id"`
 	Message string `json:"message"`
 }
+
 
 type User struct {
 	Id int `json:id`
     Name string `json:"name"`
     Email string `json:"email"`
 }
+
 
 func GetHandler(c echo.Context) error {
 	db := DBConnect()
@@ -59,6 +62,7 @@ func GetHandler(c echo.Context) error {
 	db.Find(&posts)
 	return c.JSON(http.StatusOK, posts)
 }
+
 
 func PostHandler(c echo.Context) error {
 	db := DBConnect()

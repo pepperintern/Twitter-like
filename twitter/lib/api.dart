@@ -37,7 +37,9 @@ Future<String> sendUserData(
   );
 
   var url = "http://localhost:8080/user";
-  
+
+  // print(json.encode(user.toJson()));
+
   final response = await http.post(url,
       body: json.encode(user.toJson()),
       headers: {"Content-Type": "application/json"});
@@ -49,7 +51,6 @@ Future<String> sendUserData(
   } else {
     throw Exception('Failed to load post');
   }
-
 }
 
 //　投稿ページの投稿をpostでrequestする処理の準備
@@ -65,8 +66,8 @@ class Post {
   }
 
   Map<String, dynamic> toJson() => {
-    'message': message,
-  };
+        'message': message,
+      };
 }
 
 TextEditingController postctl = new TextEditingController();
